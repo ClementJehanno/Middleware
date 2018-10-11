@@ -29,7 +29,7 @@ public class ClientApp extends UnicastRemoteObject implements IClient, ActionLis
 		this.view = new ClientFrame(this, this);
 		if(this.pseudo!= null)
 		{
-			this.view.changerTitre("Gringott - Service d'ench�re pour sorciers - Client : " + this.pseudo);	
+			this.view.changerTitre("Gringott - Service d'enchère pour sorciers - Client : " + this.pseudo);	
 		}
 		this.view.setVisible(true);
 		this.server = (IServer) Naming.lookup("//" + url);
@@ -50,7 +50,7 @@ public class ClientApp extends UnicastRemoteObject implements IClient, ActionLis
 			}
 		}
 		if (!contains){
-			System.out.println("Nouvel item ajouté : " + item.getName());
+			System.out.println("Nouvel item ajoutÃ© : " + item.getName());
 			this.items.add(item);
 		}
 		this.updateView();
@@ -60,7 +60,7 @@ public class ClientApp extends UnicastRemoteObject implements IClient, ActionLis
 	public void update(Item item, double newPrice, String buyer) throws RemoteException {
 		for (Item i : items){
 			if (i.getName().equals(item.getName()) && !i.isSold()){
-				System.out.println("Mise à jour de l'item : " + i.getName());
+				System.out.println("Mise Ã  jour de l'item : " + i.getName());
 				i.setPrice(newPrice);
 				i.setLeader(buyer);
 				this.updateView();
@@ -98,35 +98,29 @@ public class ClientApp extends UnicastRemoteObject implements IClient, ActionLis
 			}	
 			break;
 		case "Soumettre":
-			synchronized(this)
-			{
-				try {
-					Item item = this.view.getSubmitPanel().getFieldsContent();
-					this.server.submit(item);
-					this.view.getSubmitPanel().clear();
-				} catch (NumberFormatException e1) {
-					System.out.println("Merci de mettre des nombres.");
-				} catch (RemoteException e1) {
-					e1.printStackTrace();
-				}
+			try {
+				Item item = this.view.getSubmitPanel().getFieldsContent();
+				this.server.submit(item);
+				this.view.getSubmitPanel().clear();
+			} catch (NumberFormatException e1) {
+				System.out.println("Merci de mettre des nombres.");
+			} catch (RemoteException e1) {
+				e1.printStackTrace();
 			}
 			break;
-		case "Enchérir":
-			synchronized(this)
-			{
-				try {
-						BidButton source = (BidButton) e.getSource();
-						if (Double.parseDouble(source.getContent()) >= source.getItem().getPrice()*0.2) {
-							this.server.bid(source.getItem(), Double.parseDouble(source.getContent()), this.getPseudo());
-						} else {
-							System.out.println("Vous devez ench�rir d'au moins 20% du prix courant.");
-						}
-				
-				} catch (NumberFormatException e1) {
-					System.out.println("Merci de mettre un nombre.");
-				} catch (RemoteException e1) {
-					e1.printStackTrace();
-				}
+		case "EnchÃ©rir":
+			try {
+					BidButton source = (BidButton) e.getSource();
+					if (Double.parseDouble(source.getContent()) >= source.getItem().getPrice()*0.2) {
+						this.server.bid(source.getItem(), Double.parseDouble(source.getContent()), this.getPseudo());
+					} else {
+						System.out.println("Vous devez enchérir d'au moins 20% du prix courant.");
+					}
+
+			} catch (NumberFormatException e1) {
+				System.out.println("Merci de mettre un nombre.");
+			} catch (RemoteException e1) {
+				e1.printStackTrace();
 			}
 			break;
 		case "Deconnexion":
@@ -157,7 +151,7 @@ public class ClientApp extends UnicastRemoteObject implements IClient, ActionLis
 	@Override
 	public void setPseudo(String pseudo) throws RemoteException {
 		this.pseudo = pseudo;
-		this.view.changerTitre("Gringott - Service d'ench�re pour sorciers - Client : " + this.pseudo);
+		this.view.changerTitre("Gringott - Service d'enchère pour sorciers - Client : " + this.pseudo);
 	}
 
 	public static void main(String[] args) {
