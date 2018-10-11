@@ -35,7 +35,7 @@ public class ServerApp extends UnicastRemoteObject implements IServer {
 
 	@Override
 	public void registerClient(IClient client) throws RemoteException {
-		//ici on va juste mettre un hash en fonction du timestamp sur le pseudo s'il existe dÈj‡
+		//ici on va juste mettre un hash en fonction du timestamp sur le pseudo s'il existe d√©j√†
 		for(IClient mesClients : clients)
 		{
 			if(mesClients.getPseudo().equals(client.getPseudo()))
@@ -67,7 +67,7 @@ public class ServerApp extends UnicastRemoteObject implements IServer {
 	}
 
 	@Override
-	public void bid(Item item, double newPrice, String buyer) throws RemoteException {
+	public synchronized void bid(Item item, double newPrice, String buyer) throws RemoteException {
 		double price = item.getPrice() + newPrice;
 		System.out.println("New bid from " + buyer + " recorded for " + item.getName() + " at " + price);
 		
@@ -85,7 +85,7 @@ public class ServerApp extends UnicastRemoteObject implements IServer {
 	}
 
 	@Override
-	public void submit(Item item) throws RemoteException {
+	public synchronized void submit(Item item) throws RemoteException {
 		System.out.println("New item registered : " + item);
 		this.items.add(item);
 		dbManager.addItem(item);
