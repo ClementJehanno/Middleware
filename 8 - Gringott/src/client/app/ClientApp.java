@@ -27,10 +27,7 @@ public class ClientApp extends UnicastRemoteObject implements IClient, ActionLis
 	public ClientApp(String url) throws MalformedURLException, RemoteException, NotBoundException {
 		this.items = new ArrayList<Item>();
 		this.view = new ClientFrame(this, this);
-		if(this.pseudo!= null)
-		{
-			this.view.changerTitre("Gringott - Service d'enchère pour sorciers - Client : " + this.pseudo);	
-		}
+		//this.setPseudo(this.pseudo);//update affichage GUI	
 		this.view.setVisible(true);
 		this.server = (IServer) Naming.lookup("//" + url);
 	}
@@ -90,6 +87,8 @@ public class ClientApp extends UnicastRemoteObject implements IClient, ActionLis
 		case "Connexion":
 			try {
 				this.pseudo = this.view.getRegisterPanel().getFieldContent();
+				//update interface 
+				this.setPseudo(this.pseudo);
 				this.server.registerClient(this);
 				this.view.setContentPane(view.getTabPanel());
 				this.updateView();
@@ -108,7 +107,7 @@ public class ClientApp extends UnicastRemoteObject implements IClient, ActionLis
 				e1.printStackTrace();
 			}
 			break;
-		case "EnchÃ©rir":
+		case "Enchérir":
 			try {
 					BidButton source = (BidButton) e.getSource();
 					if (Double.parseDouble(source.getContent()) >= source.getItem().getPrice()*0.2) {
