@@ -7,6 +7,7 @@ import com.alma.pay2bid.client.IClient;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
+import java.lang.*;
 import java.util.logging.Logger;
 
 
@@ -120,11 +121,7 @@ public class Server extends UnicastRemoteObject implements IServer {
      */
     @Override
     public synchronized void register(IClient client) throws RemoteException {
-          
-              String oldPseudo = client.getName();
-              String newPseudo = oldPseudo + client.getIdentity().getUUID().toString();  // hash from timestamp 
-              client.setName(newPseudo);
-              System.out.println(newPseudo);
+
               clients.add(client);
     }
 
@@ -220,7 +217,7 @@ public class Server extends UnicastRemoteObject implements IServer {
             }
         }
     }
-    
+
     public AuctionBean getCurrentAuction() throws RemoteException{
     	return currentAuction;
     }
@@ -228,4 +225,6 @@ public class Server extends UnicastRemoteObject implements IServer {
     public IClient getWinner() throws RemoteException{
       return winner;
     }
+
+
 }

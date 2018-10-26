@@ -72,7 +72,7 @@ public class ClientGui {
     /**
      * Initialize the GUI & populate it with the base elements
      */
-    private void createGui() {
+    private void createGui() throws RemoteException{
         // Create the Main JFrame
         mainFrame = new JFrame("Pay2Bid - Auction");
         Dimension dimension = new Dimension(500, 500);
@@ -95,7 +95,7 @@ public class ClientGui {
 
         if(selectedOption == 0)
         {
-        String text = txt.getText();
+        String text = server.checkName(txt.getText());
           if (text.length() > 1 ) {
             hasName = true;
             try {
@@ -200,7 +200,7 @@ public class ClientGui {
                     setAuctionPrice(auctionID, price);
                     if (!client.getEstVendeur()) {
                     		auction.enable();
-                    }		
+                    }
                 }
             });
 

@@ -96,10 +96,9 @@ public class Client extends UnicastRemoteObject implements IClient, IBidSoldObse
      */
     public Client(IServer server) throws RemoteException {
         super();
-
         identity = new ClientBean(UUID.randomUUID(), name, "default password", name);
         this.server = server;
-        this.name = "inconnu";
+        this.name = name;
         this.estVendeur = false;
         state = ClientState.WAITING;
     }
@@ -114,7 +113,7 @@ public class Client extends UnicastRemoteObject implements IClient, IBidSoldObse
         LOGGER.info("New auction received from the server");
         if (this.identity.getUUID().equals(auction.getVendeur())) {
     			this.setEstVendeur(true);
-        } else { 
+        } else {
     			this.setEstVendeur(false);
         }
         currentAuction = auction;

@@ -43,6 +43,7 @@ public interface IServer extends Remote {
     void timeElapsed(IClient client) throws RemoteException, InterruptedException;
 
     IClient getWinner() throws RemoteException;
-    
+
     AuctionBean getCurrentAuction() throws RemoteException;
+
 }
