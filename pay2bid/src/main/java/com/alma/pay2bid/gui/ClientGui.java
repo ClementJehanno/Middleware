@@ -95,7 +95,7 @@ public class ClientGui {
 
         if(selectedOption == 0)
         {
-        String text = server.checkName(txt.getText());
+        String text = txt.getText() + UUID.randomUUID().toString();
           if (text.length() > 1 ) {
             hasName = true;
             try {

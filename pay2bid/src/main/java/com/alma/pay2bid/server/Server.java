@@ -162,7 +162,7 @@ public class Server extends UnicastRemoteObject implements IServer {
         if((client.getState() == ClientState.WAITING) && (newBid > currentAuction.getPrice())) {
             bidByClient.put(client, newBid);
             client.setState(ClientState.RAISING);
-            LOGGER.info("New bid '" + newBid + "' placed by client " + client.toString());
+            LOGGER.info("New bid '" + newBid + "' placed by client " + client.getName());
         }
     }
 
