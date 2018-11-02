@@ -3,4 +3,8 @@
 
 ## Description
 
-Dépôt pour notre projet de middleware dont le rapport est disponible ici : https://docs.google.com/document/d/1kFRffXFYlGZWptH2jNCR77yp9-h_F7IwlfcVBwcdZng/edit?usp=sharing
+Dépôt pour notre projet de middleware. 
+  - rapport à la racine du dépôt : "Rapport Middleware.pdf"
+
+
+Romain Duclos, Clément Jehanno, Loïc Mahier
